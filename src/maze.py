@@ -36,3 +36,7 @@ class Maze:
 
     def draw(self, window):
         self.__draw_cells(window)
+
+    def cells(self):
+        """Exists for testing only because why not..."""
+        return self.__cells
