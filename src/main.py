@@ -2,6 +2,7 @@ from window import Window
 from point import Point
 from cell import Cell
 from line import Line
+from maze import Maze
 
 if __name__ == "__main__":
     window = Window(800, 600, "PyMaze")
@@ -24,4 +25,6 @@ if __name__ == "__main__":
     cell1.draw_move(window, cell2)
     cell1.draw_move(window, cell3, True)
     cell2.draw_move(window, cell3, True)
+    maze = Maze(Point(10, 10), 10, 10, 10)
+    maze.draw(window)
     window.wait_for_close()
