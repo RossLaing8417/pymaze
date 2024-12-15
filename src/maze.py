@@ -1,5 +1,6 @@
-from point import Point
-from cell import Cell
+from src.point import Point
+from src.cell import Cell
+
 import time
 
 

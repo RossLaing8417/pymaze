@@ -1,8 +1,8 @@
-from window import Window
-from point import Point
-from cell import Cell
-from line import Line
-from maze import Maze
+from src.window import Window
+from src.point import Point
+from src.cell import Cell
+from src.line import Line
+from src.maze import Maze
 
 if __name__ == "__main__":
     window = Window(800, 600, "PyMaze")
