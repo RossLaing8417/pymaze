@@ -12,18 +12,26 @@ class Cell:
         self.right = right
 
     def draw(self, window, fill_color):
-        if self.top:
-            Line(Point(self.p1.x, self.p1.y),
-                 Point(self.p2.x, self.p1.y)).draw(window, fill_color)
-        if self.bottom:
-            Line(Point(self.p1.x, self.p2.y),
-                 Point(self.p2.x, self.p2.y)).draw(window, fill_color)
-        if self.left:
-            Line(Point(self.p1.x, self.p1.y),
-                 Point(self.p1.x, self.p2.y)).draw(window, fill_color)
-        if self.right:
-            Line(Point(self.p2.x, self.p1.y),
-                 Point(self.p2.x, self.p2.y)).draw(window, fill_color)
+        Line(Point(self.p1.x, self.p1.y),
+             Point(self.p2.x, self.p1.y)).draw(
+            window,
+            fill_color if self.top else "white"
+        )
+        Line(Point(self.p1.x, self.p2.y),
+             Point(self.p2.x, self.p2.y)).draw(
+            window,
+            fill_color if self.bottom else "white"
+        )
+        Line(Point(self.p1.x, self.p1.y),
+             Point(self.p1.x, self.p2.y)).draw(
+            window,
+            fill_color if self.left else "white"
+        )
+        Line(Point(self.p2.x, self.p1.y),
+             Point(self.p2.x, self.p2.y)).draw(
+            window,
+            fill_color if self.right else "white"
+        )
 
     def draw_move(self, window, target, undo=False):
         p1 = self.p1 + ((self.p2 - self.p1) // 2)

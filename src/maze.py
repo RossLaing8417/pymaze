@@ -23,6 +23,11 @@ class Maze:
                     Point(row_offset + self.cell_size,
                           col_offset + self.cell_size)
                 )
+        self.__break_entrance_and_exit()
+
+    def __break_entrance_and_exit(self):
+        self.__cells[0][0].top = False
+        self.__cells[self.rows-1][self.cols-1].bottom = False
 
     def __draw_cells(self, window):
         for y in range(self.cols):
