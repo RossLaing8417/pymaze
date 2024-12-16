@@ -7,20 +7,22 @@ import time
 
 
 class Maze:
-    def __init__(
-            self,
-            window: Window,
-            p: Point,
-            rows: int,
-            cols: int,
-            cell_size: int,
-            seed: int = None
-    ):
+    def __init__(self,
+                 window: Window,
+                 p: Point,
+                 rows: int,
+                 cols: int,
+                 cell_size: int,
+                 seed: int = None
+                 ):
         self.__window: Window = window
         self.__point: Point = p
         self.rows: int = rows
         self.cols: int = cols
         self.cell_size: int = cell_size
+        self.__adjacent: list[set[int, int]] = [
+            (-1, 0,), (0, -1,), (1, 0,), (0, 1,)
+        ]
         self.cells: list[list[Cell]] = [
             [None for _ in range(rows)] for _ in range(cols)
         ]
@@ -49,10 +51,9 @@ class Maze:
 
     def __break_walls_r(self, x: int, y: int) -> None:
         self.cells[y][x].visited = True
-        adjacent = [(-1, 0,), (0, -1,), (1, 0,), (0, 1,)]
         while True:
             queue: list[set[int, int]] = []
-            for adj in adjacent:
+            for adj in self.__adjacent:
                 xx = x + adj[0]
                 yy = y + adj[1]
                 if xx < 0 or xx >= self.rows or yy < 0 or yy >= self.cols:
@@ -89,6 +90,44 @@ class Maze:
             self.cells[y][x].draw(self.__window, "black")
             self.__animate()
 
+    def __draw_cell_move(self,
+                         x: int, y: int,
+                         xx: int, yy: int,
+                         undo: bool = False
+                         ) -> None:
+        if self.__window is not None:
+            self.cells[y][x].draw_move(self.__window, self.cells[yy][xx], undo)
+            self.__animate()
+
     def __animate(self) -> None:
         self.__window.redraw()
         time.sleep(0.05)
+
+    def __solve_r(self, x: int, y: int) -> bool:
+        self.__animate()
+        self.cells[y][x].visited = True
+        if x == self.rows - 1 and y == self.cols - 1:
+            return True
+        for adj in self.__adjacent:
+            xx = x + adj[0]
+            yy = y + adj[1]
+            if xx < 0 or xx >= self.rows or yy < 0 or yy >= self.cols:
+                continue
+            if self.cells[yy][xx].visited:
+                continue
+            can_move = False
+            if xx == x:
+                can_move = (yy > y and not self.cells[y][x].bottom) or (
+                    yy < y and not self.cells[y][x].top)
+            else:
+                can_move = (xx > x and not self.cells[y][x].right) or (
+                    xx < x and not self.cells[y][x].left)
+            if can_move:
+                self.__draw_cell_move(x, y, xx, yy)
+                if self.__solve_r(xx, yy):
+                    return True
+                self.__draw_cell_move(x, y, xx, yy, True)
+        return False
+
+    def solve(self) -> bool:
+        return self.__solve_r(0, 0)

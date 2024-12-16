@@ -18,4 +18,5 @@ if __name__ == "__main__":
     cell1.draw_move(window, cell3, True)
     cell2.draw_move(window, cell3, True)
     maze = Maze(window, Point(10, 10), 10, 10, 10, 69)
+    print(maze.solve())
     window.wait_for_close()

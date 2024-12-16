@@ -4,15 +4,14 @@ from src.line import Line
 
 
 class Cell:
-    def __init__(
-            self,
-            p1: Point,
-            p2: Point,
-            top: bool = True,
-            bottom: bool = True,
-            left: bool = True,
-            right: bool = True
-    ):
+    def __init__(self,
+                 p1: Point,
+                 p2: Point,
+                 top: bool = True,
+                 bottom: bool = True,
+                 left: bool = True,
+                 right: bool = True
+                 ):
         self.p1: Point = p1
         self.p2: Point = p2
         self.top: bool = top
