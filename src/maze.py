@@ -47,7 +47,9 @@ class Maze:
 
     def __break_entrance_and_exit(self) -> None:
         self.cells[0][0].top = False
+        self.__draw_cell(0, 0)
         self.cells[self.cols-1][self.rows-1].bottom = False
+        self.__draw_cell(self.rows-1, self.cols-1)
 
     def __break_walls_r(self, x: int, y: int) -> None:
         self.cells[y][x].visited = True
@@ -101,7 +103,7 @@ class Maze:
 
     def __animate(self) -> None:
         self.__window.redraw()
-        time.sleep(0.05)
+        time.sleep(0.01)
 
     def __solve_r(self, x: int, y: int) -> bool:
         self.__animate()
