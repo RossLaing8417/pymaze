@@ -19,6 +19,7 @@ class Cell:
         self.bottom: bool = bottom
         self.left: bool = left
         self.right: bool = right
+        self.visited: bool = False
 
     def draw(self, window: Window, fill_color: str):
         Line(Point(self.p1.x, self.p1.y),
