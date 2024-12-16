@@ -1,17 +1,26 @@
+from src.window import Window
 from src.point import Point
 from src.line import Line
 
 
 class Cell:
-    def __init__(self, p1, p2, top=True, bottom=True, left=True, right=True):
-        self.p1 = p1
-        self.p2 = p2
-        self.top = top
-        self.bottom = bottom
-        self.left = left
-        self.right = right
+    def __init__(
+            self,
+            p1: Point,
+            p2: Point,
+            top: bool = True,
+            bottom: bool = True,
+            left: bool = True,
+            right: bool = True
+    ):
+        self.p1: Point = p1
+        self.p2: Point = p2
+        self.top: bool = top
+        self.bottom: bool = bottom
+        self.left: bool = left
+        self.right: bool = right
 
-    def draw(self, window, fill_color):
+    def draw(self, window: Window, fill_color: str):
         Line(Point(self.p1.x, self.p1.y),
              Point(self.p2.x, self.p1.y)).draw(
             window,
